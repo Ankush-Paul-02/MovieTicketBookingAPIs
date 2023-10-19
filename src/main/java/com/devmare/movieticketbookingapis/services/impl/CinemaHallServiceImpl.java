@@ -38,21 +38,34 @@ public class CinemaHallServiceImpl implements CinemaHallService {
 
     @Override
     public CinemaHallDTO getCinemaHallById(Integer id) {
-        return null;
-    }
-
-    @Override
-    public CinemaHallDTO updateCinemaHall(CinemaHallDTO cinemaHall, Integer id) {
-        return null;
-    }
-
-    @Override
-    public void deleteCinemaHall(Integer id) {
-
+        CinemaHall cinemaHall = cinemaHallRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cinema hall ", "id: ", id));
+        return modelMapperConfiguration.modelMapper().map(cinemaHall, CinemaHallDTO.class);
     }
 
     @Override
     public List<CinemaHallDTO> getAllCinemasHalls() {
-        return null;
+        List<CinemaHall> cinemaHallList = cinemaHallRepository.findAll();
+        return cinemaHallList
+                .stream()
+                .map(
+                        hall -> modelMapperConfiguration
+                                .modelMapper()
+                                .map(hall, CinemaHallDTO.class)
+                ).toList();
+    }
+
+    @Override
+    public CinemaHallDTO updateCinemaHall(CinemaHallDTO cinemaHallDTO, Integer id) {
+        CinemaHall cinemaHall = cinemaHallRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cinema hall ", "id: ", id));
+        cinemaHall.setName(cinemaHallDTO.getName());
+        cinemaHall.setTotalSeats(cinemaHallDTO.getTotalSeats());
+        CinemaHall updatedCinemaHall = cinemaHallRepository.save(cinemaHall);
+        return modelMapperConfiguration.modelMapper().map(updatedCinemaHall, CinemaHallDTO.class);
+    }
+
+    @Override
+    public void deleteCinemaHall(Integer id) {
+        CinemaHall cinemaHall = cinemaHallRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cinema hall ", "id: ", id));
+        cinemaHallRepository.delete(cinemaHall);
     }
 }
