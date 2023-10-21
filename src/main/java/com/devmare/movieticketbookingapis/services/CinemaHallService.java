@@ -7,13 +7,14 @@ import com.devmare.movieticketbookingapis.payloads.DTO.CinemaHallDTO;
 import java.util.List;
 
 public interface CinemaHallService {
-    CinemaHallDTO createCinemaHall(CinemaHallDTO cinemaHall, Integer ic);
+    CinemaHallDTO createCinemaHall(CinemaHallDTO cinemaHall, Integer id);
 
     CinemaHallDTO getCinemaHallById(Integer id);
+
+    List<CinemaHallDTO> getAllCinemasHalls();
+
 
     CinemaHallDTO updateCinemaHall(CinemaHallDTO cinemaHall, Integer id);
 
     void deleteCinemaHall(Integer id);
-
-    List<CinemaHallDTO> getAllCinemasHalls();
 }
