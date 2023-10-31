@@ -21,4 +21,5 @@ public class Show {
     @ManyToOne
     @JoinColumn(name = "cinemaHallId")
     private CinemaHall cinemaHall;
+
 }

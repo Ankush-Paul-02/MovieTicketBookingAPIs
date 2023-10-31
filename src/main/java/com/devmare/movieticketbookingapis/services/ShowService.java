@@ -15,5 +15,4 @@ public interface ShowService {
     ShowDTO updateShow(ShowDTO showDTO, Integer showId);
 
     void deleteShow(Integer showId);
-
 }
